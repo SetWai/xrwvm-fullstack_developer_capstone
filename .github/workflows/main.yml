@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [master, main]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   lint_python:
     name: Lint Python Files
@@ -13,10 +16,10 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v4 # v3 မှ v4 သို့ ပြောင်းထားပါသည်
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v5 # v4 မှ v5 သို့ ပြောင်းထားပါသည်
+      uses: actions/setup-python@v5
       with:
         python-version: 3.12
 
@@ -27,7 +30,6 @@ jobs:
 
     - name: Run Linter
       run: |
-        # Python file အားလုံးကို ရှာပြီး flake8 နဲ့ lint စစ်ပါမည်
         find . -name "*.py" -exec flake8 {} +
         echo "Linted all the python files successfully"
 
@@ -49,6 +51,5 @@ jobs:
 
     - name: Run Linter
       run: |
-        # server/database ထဲရှိ JavaScript file များကို jshint နဲ့ စစ်ပါမည်
         find ./server/database -name "*.js" -exec jshint {} +
         echo "Linted all the js files successfully"
