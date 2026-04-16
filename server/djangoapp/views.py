@@ -73,6 +73,16 @@ def get_dealerships(request, state="All"):
     return JsonResponse({"status": 200, "dealers": dealerships})
 
 
+def get_dealer_details(request, dealer_id):
+    """Fetch dealer details."""
+    if dealer_id:
+        endpoint = f"/fetchDealer/{dealer_id}"
+        dealership = get_request(endpoint)
+        return JsonResponse({"status": 200, "dealer": dealership})
+    else:
+        return JsonResponse({"status": 400, "message": "Bad Request"})
+
+
 def get_dealer_reviews(request, dealer_id):
     """Fetch reviews for a specific dealer."""
     if not dealer_id:
